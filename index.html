@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rassegna Stampa Inglese — News Feed, Map &amp; Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#10233F;
+    --navy-2:#16274a;
+    --navy-3:#EEF2F8;
+    --red:#8C1D24;
+    --red-2:#B23A32;
+    --yellow:#F5C518;
+    --yellow-2:#C99A00;
+    --paper:#FFFFFF;
+    --bg:#FFFFFF;
+    --card:#FFFFFF;
+    --card-2:#F5F7FB;
+    --border:#E1E6EF;
+    --text:#10233F;
+    --text-dim:#5B6478;
+    --font-title:'Avenir','Avenir Next','Poppins',sans-serif;
+    --font-body:'Poppins','Avenir Next',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--font-body);
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{ font-family:var(--font-title); font-weight:700; margin:0; }
+  a{ color:inherit; }
+
+  /* ---------------- TOP NAV — ANSA style ---------------- */
+  .topbar{
+    background:var(--navy-2);
+    border-bottom:3px solid var(--yellow);
+    position:sticky; top:0; z-index:100;
+  }
+  .topbar-inner{
+    max-width:1200px; margin:0 auto; padding:14px 24px 0 24px;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand .mark{
+    width:34px; height:34px; border-radius:8px;
+    background:linear-gradient(135deg, var(--red), var(--yellow));
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-title); font-weight:700; color:#fff; font-size:16px;
+  }
+  .brand h1{ font-size:17px; letter-spacing:0.02em; color:#fff; }
+  .brand .tag{ font-size:11px; color:rgba(255,255,255,0.6); font-weight:400; }
+
+  .lang-toggle{
+    display:flex; align-items:center; gap:0; background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.25); border-radius:20px; padding:3px; flex-shrink:0;
+  }
+  .lang-btn{
+    border:none; background:none; cursor:pointer; font-family:var(--font-body);
+    font-size:12px; font-weight:700; letter-spacing:0.03em; padding:6px 14px; border-radius:16px;
+    color:rgba(255,255,255,0.6); transition:background .15s ease, color .15s ease;
+  }
+  .lang-btn.active{ background:var(--yellow); color:var(--navy); }
+  .lang-btn:hover:not(.active){ color:#fff; }
+
+  .cat-menu{
+    display:flex; gap:2px; margin-top:12px; padding-bottom:0;
+    overflow-x:auto; scrollbar-width:none;
+    max-width:1200px; margin-left:auto; margin-right:auto;
+    border-top:1px solid rgba(255,255,255,0.12);
+  }
+  .cat-menu::-webkit-scrollbar{ display:none; }
+  .cat-pill{
+    flex-shrink:0;
+    padding:11px 16px 9px 16px;
+    font-size:13px; font-weight:600; letter-spacing:0.01em;
+    color:rgba(255,255,255,0.65); cursor:pointer;
+    border-bottom:3px solid transparent;
+    white-space:nowrap;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .cat-pill:hover{ color:#fff; }
+  .cat-pill.active{ color:var(--yellow); border-bottom-color:var(--yellow); }
+  .cat-pill .dot{ display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:6px; }
+  .cat-pill.daily-update-pill{
+    color:var(--yellow); font-weight:700;
+    border-right:1px solid rgba(255,255,255,0.15); margin-right:6px; padding-right:18px;
+  }
+  .cat-pill.daily-update-pill:hover{ color:var(--yellow-2); }
+
+  main{ max-width:1200px; margin:0 auto; padding:0 24px; }
+
+  section{ padding:32px 0; }
+  section + section{ border-top:1px solid var(--border); }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px; }
+  .section-head h2{ font-size:22px; }
+  .section-head .hint{ font-size:12.5px; color:var(--text-dim); font-weight:400; font-family:var(--font-body); }
+
+  .hero{
+    padding:40px 0 24px 0;
+  }
+  .hero h2{
+    font-size:30px; line-height:1.2; max-width:720px;
+    margin-bottom:10px;
+  }
+  .hero p{ color:var(--text-dim); font-size:14px; max-width:640px; line-height:1.6; }
+
+  /* ---------------- FEED — social-card style ---------------- */
+  .feed{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+    gap:16px;
+  }
+  .post-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px 18px 16px 18px;
+    display:flex; flex-direction:column; gap:10px;
+    box-shadow:0 1px 3px rgba(16,35,63,0.06);
+    transition:transform .15s ease, box-shadow .15s ease;
+    cursor:pointer;
+  }
+  .post-card:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(16,35,63,0.12); }
+  .post-card.hidden{ display:none; }
+  .post-top{ display:flex; align-items:center; gap:8px; }
+  .post-avatar{
+    width:34px; height:34px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:700; font-family:var(--font-title); color:#fff;
+    background:var(--navy);
+    flex-shrink:0;
+  }
+  .post-meta{ display:flex; flex-direction:column; line-height:1.25; }
+  .post-meta .country{ font-size:12.5px; font-weight:600; }
+  .post-meta .date{ font-size:11px; color:var(--text-dim); }
+  .cat-chip{
+    margin-left:auto; display:inline-flex; align-items:center; gap:6px;
+    font-size:10.5px; font-weight:600; padding:4px 10px 4px 8px;
+    border-radius:20px; white-space:nowrap;
+    color:var(--text); background:var(--card-2); border:1px solid var(--border);
+  }
+  .cat-chip .chip-dot{ width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .post-title{ font-family:var(--font-title); font-size:15.5px; font-weight:700; line-height:1.35; }
+  .post-summary{ font-size:13px; line-height:1.65; color:var(--text-dim); }
+  .post-summary mark.term{
+    background:transparent;
+    color:var(--yellow-2);
+    font-weight:600;
+    border-bottom:2px solid var(--yellow);
+    padding:0 1px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .post-summary mark.term:hover{ background:rgba(245,197,24,0.18); border-radius:3px; }
+  .post-footer{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:8px; border-top:1px dashed var(--border); margin-top:2px;
+  }
+  .post-source{ font-size:11.5px; color:var(--text-dim); }
+  .post-footer-right{ display:flex; align-items:center; gap:12px; }
+  .post-readmore{ font-size:11px; color:var(--text-dim); font-weight:500; }
+  .post-card:hover .post-readmore{ color:var(--navy); }
+  .post-link{
+    font-size:11.5px; font-weight:600; color:var(--yellow-2); text-decoration:none;
+  }
+  .post-link:hover{ text-decoration:underline; }
+
+  /* ---------------- DAILY UPDATE (topic tabs) ---------------- */
+  .topic-tabs{
+    display:flex; gap:12px; margin-bottom:22px; flex-wrap:wrap;
+  }
+  .topic-tab{
+    flex:1; min-width:220px;
+    background:var(--card); border:2px solid var(--border); border-radius:14px;
+    padding:16px 18px; cursor:pointer;
+    box-shadow:0 1px 3px rgba(16,35,63,0.06);
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .topic-tab:hover{ transform:translateY(-1px); }
+  .topic-tab.active{ border-color:var(--yellow); background:#FFFBEA; }
+  .topic-tab .topic-name{ font-family:var(--font-title); font-weight:700; font-size:15.5px; margin-bottom:3px; }
+  .topic-tab .topic-sub{ font-size:12px; color:var(--text-dim); margin-bottom:8px; line-height:1.4; }
+  .topic-tab .topic-count{ font-size:11px; font-weight:600; color:var(--navy); background:var(--card-2);
+    display:inline-block; padding:2px 10px; border-radius:20px; }
+
+  /* ---------------- CALENDAR ---------------- */
+  .calendar-wrap{
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:18px 20px 22px 20px; box-shadow:0 1px 3px rgba(16,35,63,0.06);
+  }
+  .calendar-nav{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .cal-nav-btn{
+    width:30px; height:30px; border-radius:8px; border:1px solid var(--border);
+    background:var(--card-2); color:var(--navy); font-size:16px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cal-nav-btn:hover{ background:var(--yellow); border-color:var(--yellow); }
+  .cal-month-label{ font-family:var(--font-title); font-weight:700; font-size:15px; min-width:150px; text-align:center; }
+  .cal-reset{
+    margin-left:auto; font-size:11.5px; font-weight:600; color:var(--text-dim);
+    background:none; border:1px solid var(--border); border-radius:20px;
+    padding:5px 12px; cursor:pointer; display:none;
+  }
+  .cal-reset.visible{ display:inline-block; }
+  .cal-reset:hover{ color:var(--red); border-color:var(--red); }
+  .calendar-grid{
+    display:grid; grid-template-columns:repeat(7, 1fr); gap:6px;
+  }
+  .cal-dow{
+    font-size:10.5px; font-weight:600; color:var(--text-dim); text-align:center;
+    text-transform:uppercase; letter-spacing:0.04em; padding-bottom:4px;
+  }
+  .cal-day{
+    aspect-ratio:1; border-radius:10px; border:1px solid transparent;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:4px; font-size:12.5px; color:var(--text-dim); position:relative;
+  }
+  .cal-day.empty{ visibility:hidden; }
+  .cal-day.has-news{ cursor:pointer; color:var(--text); background:var(--card-2); border-color:var(--border); font-weight:600; }
+  .cal-day.has-news:hover{ border-color:var(--yellow); }
+  .cal-day.active{ background:var(--yellow); border-color:var(--yellow-2); color:var(--navy); }
+  .cal-day-dots{ display:flex; gap:2px; }
+  .cal-day-dots span{ width:5px; height:5px; border-radius:50%; }
+
+  /* ---------------- MAP ---------------- */
+  .map-layout{ display:flex; gap:16px; }
+  .map-col{ flex:1; position:relative; overflow:hidden; background:var(--navy-3);
+    border:1px solid var(--border); border-radius:16px; min-height:440px;
+    box-shadow:0 1px 3px rgba(16,35,63,0.06); }
+  #map-svg{ width:100%; height:100%; display:block; }
+  .land{ fill:#B9C4D6; stroke:#8A99B5; stroke-width:0.4; }
+  .pin{ cursor:pointer; }
+  .pin circle.halo{ fill:none; opacity:0.35; }
+  .pin circle.core{ stroke:#fff; stroke-width:1.5; }
+  .pin:hover circle.core{ filter:brightness(1.15); }
+  .pin-label{ font-size:10px; fill:var(--text-dim); pointer-events:none; text-anchor:middle; font-family:var(--font-body); }
+  .pin.active circle.core{ stroke:var(--navy); stroke-width:2.5; }
+  .conn-arc{ fill:none; stroke-width:1.6; stroke-dasharray:4 3; opacity:0.8; }
+
+  .sidebar{ width:360px; flex-shrink:0; border:1px solid var(--border); border-radius:16px;
+    background:var(--card); overflow-y:auto; padding:16px; max-height:600px;
+    box-shadow:0 1px 3px rgba(16,35,63,0.06); }
+  .sidebar h3.side-title{ font-size:13px; margin:0 0 10px 0; color:var(--text-dim);
+    text-transform:uppercase; letter-spacing:0.06em; font-family:var(--font-body); font-weight:600; }
+  .country-list{ display:flex; flex-direction:column; gap:4px; margin-bottom:16px; }
+  .country-item{ display:flex; align-items:center; justify-content:space-between;
+    padding:9px 10px; border-radius:8px; cursor:pointer; font-size:13px; border:1px solid transparent; }
+  .country-item:hover{ background:var(--card-2); }
+  .country-item.active{ background:var(--card-2); border-color:var(--yellow); }
+  .country-item .count{ font-size:11px; color:#fff; background:var(--navy);
+    border-radius:10px; padding:1px 8px; }
+  .detail-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .detail-header h3{ margin:0; font-size:16px; }
+  .back-btn{ font-size:12px; color:var(--yellow); cursor:pointer; background:none; border:none; padding:0; font-weight:600; }
+  .news-card{ background:var(--card-2); border:1px solid var(--border); border-radius:12px;
+    padding:12px 14px; margin-bottom:10px; }
+  .news-card .cat-tag{ display:inline-flex; align-items:center; gap:5px; font-size:10.5px;
+    color:var(--text-dim); margin-bottom:6px; }
+  .news-card .cat-dot{ width:8px; height:8px; border-radius:50%; }
+  .news-card .title{ font-family:var(--font-title); font-size:13.5px; font-weight:700; margin-bottom:5px; line-height:1.35; }
+  .news-card .summary{ font-size:12.5px; color:var(--text-dim); line-height:1.55; margin-bottom:8px; }
+  .news-card .summary mark.term{
+    background:transparent; color:var(--yellow-2); font-weight:600;
+    border-bottom:2px solid var(--yellow); cursor:pointer;
+  }
+  .news-card .meta{ display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text-dim); }
+  .news-card a{ color:var(--yellow); text-decoration:none; font-weight:600; }
+  .news-card a:hover{ text-decoration:underline; }
+  .news-card .links{ margin-top:8px; padding-top:8px; border-top:1px dashed var(--border); font-size:11px; color:var(--text-dim); }
+  .empty-state{ font-size:13px; color:var(--text-dim); padding:20px 10px; text-align:center; }
+
+  /* ---------------- TIMELINE ---------------- */
+  .timeline-wrap{ background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:20px 24px 28px 24px; overflow-x:auto; position:relative;
+    box-shadow:0 1px 3px rgba(16,35,63,0.06); }
+  .axis{ position:relative; height:28px; margin-left:130px; border-bottom:1px solid var(--border);
+    margin-bottom:6px; min-width:900px; }
+  .axis-tick{ position:absolute; top:0; font-size:11px; color:var(--text-dim);
+    transform:translateX(-50%); white-space:nowrap; }
+  .axis-tick::after{ content:""; position:absolute; left:50%; top:16px; width:1px; height:8px; background:var(--border); }
+  .lanes-wrap{ position:relative; min-width:900px; }
+  .lane{ display:flex; align-items:center; min-height:46px; border-bottom:1px dashed var(--border); }
+  .lane:last-child{ border-bottom:none; }
+  .lane-label{ width:130px; flex-shrink:0; font-size:13px; font-weight:600; color:var(--text); padding-right:10px; }
+  .lane-track{ position:relative; flex:1; height:100%; }
+  .dot{ position:absolute; top:50%; width:14px; height:14px; border-radius:50%;
+    transform:translate(-50%,-50%); cursor:pointer; border:2px solid var(--card);
+    box-shadow:0 0 0 1px rgba(0,0,0,0.15); transition:transform .15s ease; z-index:2; }
+  .dot:hover{ transform:translate(-50%,-50%) scale(1.35); z-index:5; }
+  #timeline-conn-svg{ position:absolute; top:0; left:130px; right:0; bottom:0; width:calc(100% - 130px);
+    height:100%; pointer-events:none; z-index:1; }
+  .tl-conn-line{ fill:none; stroke-width:1.6; stroke-dasharray:4 3; opacity:0.85; }
+
+  .legend{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; }
+  .legend-item{ display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-dim); }
+  .legend-dot{ width:10px; height:10px; border-radius:50%; }
+  .legend-line{ width:16px; height:0; border-top:2px dashed var(--text-dim); }
+
+  .tooltip{ position:fixed; display:none; max-width:280px; background:var(--card-2);
+    border:1px solid var(--border); border-radius:10px; padding:10px 12px; font-size:12.5px;
+    color:var(--text); box-shadow:0 6px 20px rgba(0,0,0,0.35); z-index:200; pointer-events:none; }
+  .tooltip .t-title{ font-weight:700; margin-bottom:4px; font-family:var(--font-title); }
+  .tooltip .t-meta{ color:var(--text-dim); font-size:11.5px; margin-bottom:4px; }
+
+  footer{ padding:20px 0 40px 0; font-size:11px; color:var(--text-dim); }
+
+  /* ---------------- DEEP-DIVE DRAWER (studenti.it-style) ---------------- */
+  .drawer-overlay{
+    position:fixed; inset:0; background:rgba(6,12,26,0.55);
+    opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:449;
+  }
+  .drawer-overlay.open{ opacity:1; pointer-events:auto; }
+  .drawer{
+    position:fixed; top:0; right:0; height:100%; width:380px; max-width:88vw;
+    background:var(--card); border-left:3px solid var(--yellow);
+    box-shadow:-12px 0 40px rgba(0,0,0,0.4);
+    transform:translateX(100%); transition:transform .25s ease;
+    z-index:450; padding:22px 22px 30px 22px; overflow-y:auto;
+  }
+  .drawer.open{ transform:translateX(0); }
+  .drawer-close{
+    background:none; border:none; color:var(--text-dim); font-size:20px;
+    cursor:pointer; float:right; line-height:1;
+  }
+  .drawer-close:hover{ color:var(--yellow); }
+  .drawer-eyebrow{ font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--yellow-2); font-weight:600; margin-bottom:6px; }
+  .drawer h3{ font-size:19px; margin-bottom:14px; padding-right:26px; }
+  .drawer p{ font-size:14px; line-height:1.7; color:var(--text); margin:0 0 14px 0; }
+  .drawer .drawer-cat{ display:inline-flex; align-items:center; gap:6px; font-size:11.5px;
+    color:var(--text-dim); margin-bottom:14px; }
+  .drawer .drawer-cat span.dot{ width:8px; height:8px; border-radius:50%; }
+  .drawer p mark.term{ background:transparent; color:var(--yellow-2); font-weight:600;
+    border-bottom:2px solid var(--yellow); cursor:pointer; }
+  .drawer-cta{
+    display:inline-flex; align-items:center; gap:6px; margin-top:6px;
+    background:var(--navy); color:#fff; font-weight:600; font-size:13px;
+    padding:10px 18px; border-radius:10px; text-decoration:none;
+  }
+  .drawer-cta:hover{ background:var(--red); }
+  .drawer-source{ font-size:12px; color:var(--text-dim); margin-top:10px; }
+
+  /* ---------------- ARTICLE MODAL (center window) ---------------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(16,35,63,0.55);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+    opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:399;
+  }
+  .modal-overlay.open{ opacity:1; pointer-events:auto; }
+  .modal-box{
+    background:var(--card); border-radius:18px; max-width:640px; width:100%;
+    max-height:85vh; overflow-y:auto; padding:32px 32px 28px 32px;
+    box-shadow:0 24px 70px rgba(16,35,63,0.35);
+    transform:translateY(16px) scale(0.98); transition:transform .2s ease;
+  }
+  .modal-overlay.open .modal-box{ transform:translateY(0) scale(1); }
+  .modal-close{
+    position:absolute; top:18px; right:18px;
+    background:var(--card-2); border:1px solid var(--border); border-radius:50%;
+    width:30px; height:30px; color:var(--text-dim); font-size:15px; cursor:pointer;
+  }
+  .modal-close:hover{ color:var(--red); border-color:var(--red); }
+  .modal-eyebrow{ font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--yellow-2); font-weight:600; margin-bottom:8px; }
+  .modal-box h3{ font-size:23px; line-height:1.3; margin-bottom:12px; padding-right:20px; }
+  .modal-cat{ display:inline-flex; align-items:center; gap:6px; font-size:12.5px;
+    color:var(--text-dim); margin-bottom:16px; }
+  .modal-cat span.dot{ width:8px; height:8px; border-radius:50%; }
+  .modal-box p{ font-size:15px; line-height:1.75; color:var(--text); margin:0 0 16px 0; }
+  .modal-box p mark.term{ background:transparent; color:var(--yellow-2); font-weight:600;
+    border-bottom:2px solid var(--yellow); cursor:pointer; }
+  .modal-source{ font-size:12.5px; color:var(--text-dim); margin-top:4px; }
+  .modal-cta{
+    display:inline-flex; align-items:center; gap:6px; margin-top:14px;
+    background:var(--navy); color:#fff; font-weight:600; font-size:14px;
+    padding:12px 22px; border-radius:10px; text-decoration:none;
+  }
+  .modal-cta:hover{ background:var(--red); }
+  @media (max-width:600px){
+    .modal-box{ padding:26px 20px 22px 20px; }
+  }
+
+  @media (max-width:900px){
+    .map-layout{ flex-direction:column; }
+    .sidebar{ width:100%; max-height:360px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="mark">RS</div>
+      <div>
+        <h1>Rassegna Stampa Inglese</h1>
+        <div class="tag" data-i18n="tagline">World news feed, map &amp; timeline — updated daily</div>
+      </div>
+    </div>
+    <div class="lang-toggle" id="lang-toggle">
+      <button class="lang-btn" id="lang-en" data-lang="en">EN</button>
+      <button class="lang-btn" id="lang-it" data-lang="it">IT</button>
+    </div>
+  </div>
+  <nav class="cat-menu" id="cat-menu"></nav>
+</div>
+
+<main>
+
+  <section class="hero">
+    <h2 data-i18n="heroTitle"></h2>
+    <p data-i18n="heroSub"></p>
+  </section>
+
+  <section id="daily-update">
+    <div class="section-head">
+      <h2>📌 Daily Update</h2>
+      <span class="hint" data-i18n="dailyUpdateHint"></span>
+    </div>
+    <div class="topic-tabs" id="topic-tabs"></div>
+    <div class="feed" id="topic-feed"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 data-i18n="feedTitle"></h2>
+      <span class="hint" id="feed-hint"></span>
+    </div>
+    <div class="feed" id="feed"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 data-i18n="calendarTitle"></h2>
+      <span class="hint" data-i18n="calendarHint"></span>
+    </div>
+    <div class="calendar-wrap">
+      <div class="calendar-nav">
+        <button class="cal-nav-btn" id="cal-prev">‹</button>
+        <div class="cal-month-label" id="cal-month-label"></div>
+        <button class="cal-nav-btn" id="cal-next">›</button>
+        <button class="cal-reset" id="cal-reset"></button>
+      </div>
+      <div class="calendar-grid" id="calendar-grid"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 data-i18n="mapTitle"></h2>
+      <span class="hint" data-i18n="mapHint"></span>
+    </div>
+    <div class="map-layout">
+      <div class="map-col">
+        <svg id="map-svg" viewBox="0 0 960 500"></svg>
+      </div>
+      <div class="sidebar">
+        <div id="sidebar-content"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2 data-i18n="timelineTitle"></h2>
+      <span class="hint" data-i18n="timelineHint"></span>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="timeline-wrap">
+      <div class="axis" id="axis"></div>
+      <div class="lanes-wrap">
+        <svg id="timeline-conn-svg"></svg>
+        <div id="lanes"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><span data-i18n="footerLead"></span> · <span id="itemcount"></span> <span data-i18n="footerItems"></span> · <span id="countrycount"></span> <span data-i18n="footerCountries"></span> · <span id="conncount"></span> <span data-i18n="footerConns"></span></footer>
+</main>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" id="drawer-close">✕</button>
+  <div class="drawer-eyebrow" data-i18n="drawerEyebrow"></div>
+  <h3 id="drawer-title"></h3>
+  <div id="drawer-body"></div>
+</aside>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<script>
+const WIDTH = 960, HEIGHT = 500;
+const tooltip = document.getElementById('tooltip');
+let svg, projection, path;
+const D3_AVAILABLE = (typeof d3 !== 'undefined' && typeof topojson !== 'undefined');
+
+let DATA = null;
+let activeCountry = null;
+let activeCategory = null;
+let activeDate = null;
+let calMonthCursor = null; // Date, first-of-month currently shown in the calendar
+let currentLang = 'en'; // default language: English, to help study English; toggle switches to Italian
+
+const I18N = {
+  en: {
+    tagline: 'World news feed, map &amp; timeline — updated daily',
+    heroTitle: 'Today\'s news, connected across nations.',
+    heroSub: 'Pick a category from the top menu to filter the feed. Words highlighted in yellow open a deep-dive; dashed lines on the map and timeline connect related stories across different countries.',
+    dailyUpdateHint: 'the big ongoing stories, followed day by day',
+    feedTitle: 'Feed',
+    allCategories: 'all categories',
+    calendarTitle: 'Calendar',
+    calendarHint: 'click a day to filter the feed',
+    calResetAll: 'All dates ✕',
+    mapTitle: 'World Map',
+    mapHint: 'click a country for in-depth coverage',
+    timelineTitle: 'Timeline',
+    timelineHint: 'evolution over time, by country',
+    footerLead: 'Data and sources updated by the daily press review',
+    footerItems: 'stories', footerCountries: 'countries/entities', footerConns: 'cross-country links',
+    drawerEyebrow: 'Deep dive',
+    modalEyebrow: 'Story',
+    expandHint: 'Expand ↓',
+    readArticle: 'Read the article ↗',
+    openArticle: 'Open article ↗',
+    openFullArticle: 'Open full article ↗',
+    close: 'Close ✕',
+    allTopics: 'All',
+    dailyUpdatePill: '📌 Daily Update',
+    sideTitle: 'Countries / Entities',
+    sidebarEmpty: 'Select a country from the list or the map to see its in-depth coverage.',
+    topicEmpty: 'No news for this dossier yet.',
+    source: 'Source',
+    relatedTo: '🔗 Related to:',
+    connectionLegend: 'cross-country connection',
+    dows: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    locale: 'en-US',
+    newsSingular: 'story', newsPlural: 'stories',
+    mapUnavailable: 'Map unavailable: could not load the library from CDN (needs internet access to d3.js). The feed and timeline below still work.'
+  },
+  it: {
+    tagline: 'Notizie dal mondo, mappa e timeline — aggiornato ogni giorno',
+    heroTitle: 'Le notizie del giorno, connesse tra nazioni.',
+    heroSub: 'Seleziona una categoria dal menu in alto per filtrare il feed. Le parole evidenziate in giallo aprono un approfondimento; le linee tratteggiate su mappa e timeline collegano notizie di paesi diversi legate tra loro.',
+    dailyUpdateHint: 'i grandi dossier del momento, seguiti giorno per giorno',
+    feedTitle: 'Feed',
+    allCategories: 'tutte le categorie',
+    calendarTitle: 'Calendario',
+    calendarHint: 'clicca un giorno per filtrare il feed',
+    calResetAll: 'Tutte le date ✕',
+    mapTitle: 'World Map',
+    mapHint: 'clicca un paese per gli approfondimenti',
+    timelineTitle: 'Timeline',
+    timelineHint: 'evoluzione nel tempo per nazione',
+    footerLead: 'Dati e fonti aggiornati dalla rassegna stampa giornaliera',
+    footerItems: 'notizie', footerCountries: 'nazioni/entità', footerConns: 'connessioni tra nazioni',
+    drawerEyebrow: 'Approfondimento',
+    modalEyebrow: 'Notizia',
+    expandHint: 'Espandi ↓',
+    readArticle: 'Leggi l\'articolo ↗',
+    openArticle: 'Apri articolo ↗',
+    openFullArticle: 'Apri l\'articolo completo ↗',
+    close: 'Chiudi ✕',
+    allTopics: 'Tutte',
+    dailyUpdatePill: '📌 Daily Update',
+    sideTitle: 'Nazioni / Entità',
+    sidebarEmpty: 'Seleziona una nazione dalla lista o dalla mappa per vedere gli approfondimenti.',
+    topicEmpty: 'Nessuna notizia per questo dossier al momento.',
+    source: 'Fonte',
+    relatedTo: '🔗 Collegata a:',
+    connectionLegend: 'connessione tra nazioni',
+    dows: ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],
+    locale: 'it-IT',
+    newsSingular: 'notizia', newsPlural: 'notizie',
+    mapUnavailable: 'Mappa non disponibile: impossibile caricare la libreria da CDN (serve connessione internet allo script d3.js). Feed e timeline funzionano comunque qui sotto.'
+  }
+};
+function t(key){ return I18N[currentLang][key] || I18N.en[key] || key; }
+function L(obj){ if(!obj) return obj; return obj[currentLang] || obj.en || obj.it || obj; }
+function placeLabel(key){ const p = DATA.places[key]; return p ? L(p) : key; }
+function catLabel(cat){ return (DATA.categoryLabels && DATA.categoryLabels[currentLang] && DATA.categoryLabels[currentLang][cat]) || cat; }
+
+fetch('data.json').then(r=>r.json()).then(data=>{
+  DATA = data;
+  init();
+}).catch(err=>{
+  console.error('Could not load data.json', err);
+});
+
+function init(){
+  document.getElementById('lang-en').addEventListener('click', ()=> setLang('en'));
+  document.getElementById('lang-it').addEventListener('click', ()=> setLang('it'));
+  renderAll(true);
+}
+
+function renderAll(isFirstRun){
+  applyStaticI18n();
+  buildCatMenu();
+  buildDailyUpdate();
+  buildFeed();
+  buildLegend();
+  buildCountryList();
+  buildTimeline();
+  buildCalendar();
+  if(isFirstRun) initDrawer();
+
+  // Map rendering needs d3 + topojson (loaded from CDN) and world land shapes.
+  if(D3_AVAILABLE){
+    if(isFirstRun){
+      svg = d3.select('#map-svg');
+      projection = d3.geoNaturalEarth1().scale(160).translate([WIDTH/2, HEIGHT/2 + 20]);
+      path = d3.geoPath(projection);
+      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json').then(r=>r.json())
+        .then(land=>{
+          const landFeature = topojson.feature(land, land.objects.land);
+          svg.append('g').selectAll('path').data(landFeature.features).join('path')
+            .attr('class','land').attr('d', path);
+        })
+        .catch(err=> console.warn('World land shapes unavailable, showing markers on a plain background.', err))
+        .finally(()=>{
+          drawMapConnections();
+          drawPins();
+        });
+    } else {
+      // Language switch: just redraw pins/connections/labels, keep the land shapes.
+      svg.selectAll('g.pins, g.map-connections').remove();
+      drawMapConnections();
+      drawPins();
+      if(activeCountry) selectCountry(activeCountry);
+    }
+  } else if(isFirstRun){
+    console.warn('d3/topojson failed to load from CDN — map markers are skipped, feed/timeline still work.');
+    document.querySelector('.map-col').innerHTML =
+      `<div style="padding:40px;color:var(--text-dim);font-size:13px;" data-i18n="mapUnavailable">${t('mapUnavailable')}</div>`;
+  }
+}
+
+function setLang(lang){
+  if(lang === currentLang) return;
+  currentLang = lang;
+  // Close any open drawer/modal before re-rendering, content refs may change.
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.getElementById('lanes').innerHTML = '';
+  document.getElementById('axis').innerHTML = '';
+  document.getElementById('legend').innerHTML = '';
+  const svgConn = document.getElementById('timeline-conn-svg');
+  if(svgConn) svgConn.innerHTML = '';
+  renderAll(false);
+}
+
+function itemsById(){ const m = {}; DATA.items.forEach(it => m[it.id] = it); return m; }
+function groupByCountry(){
+  const byC = {};
+  DATA.items.forEach(it=>{ if(!byC[it.country]) byC[it.country]=[]; byC[it.country].push(it); });
+  return byC;
+}
+function dominantColor(items){
+  const sorted = [...items].sort((a,b)=> new Date(b.date) - new Date(a.date));
+  return DATA.categories[sorted[0].category] || '#888';
+}
+
+function highlightSummary(item){
+  const L_it = L(item);
+  let html = L_it.summary;
+  (L_it.terms||[]).forEach(term=>{
+    const re = new RegExp(term.match.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+    html = html.replace(re, `<mark class="term" data-term-id="${term.id}">${term.match}</mark>`);
+  });
+  return html;
+}
+
+/* ---------------- STATIC UI TEXT (i18n) ---------------- */
+function applyStaticI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.dataset.i18n;
+    el.innerHTML = t(key);
+  });
+  document.getElementById('cal-reset').textContent = t('calResetAll');
+  document.getElementById('feed-hint').textContent = t('allCategories');
+  document.getElementById('lang-en').classList.toggle('active', currentLang==='en');
+  document.getElementById('lang-it').classList.toggle('active', currentLang==='it');
+  document.documentElement.lang = currentLang;
+}
+
+/* ---------------- CATEGORY MENU (ANSA-style) ---------------- */
+function buildCatMenu(){
+  const menu = document.getElementById('cat-menu');
+  menu.innerHTML = '';
+
+  const dailyPill = document.createElement('div');
+  dailyPill.className = 'cat-pill daily-update-pill';
+  dailyPill.textContent = t('dailyUpdatePill');
+  dailyPill.addEventListener('click', ()=>{
+    document.getElementById('daily-update').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  menu.appendChild(dailyPill);
+
+  const allPill = document.createElement('div');
+  allPill.className = 'cat-pill' + (activeCategory ? '' : ' active');
+  allPill.textContent = t('allTopics');
+  allPill.addEventListener('click', ()=> setActiveCategory(null));
+  menu.appendChild(allPill);
+
+  Object.keys(DATA.categories).forEach(cat=>{
+    const pill = document.createElement('div');
+    pill.className = 'cat-pill';
+    pill.dataset.cat = cat;
+    pill.innerHTML = `<span class="dot" style="background:${DATA.categories[cat]}"></span>${catLabel(cat)}`;
+    pill.addEventListener('click', ()=> setActiveCategory(cat));
+    menu.appendChild(pill);
+  });
+}
+function setActiveCategory(cat){
+  activeCategory = cat;
+  document.querySelectorAll('.cat-pill').forEach(p=>{
+    const isAll = !p.dataset.cat;
+    p.classList.toggle('active', isAll ? !cat : p.dataset.cat===cat);
+  });
+  applyFeedFilters();
+}
+
+function applyFeedFilters(){
+  const parts = [];
+  if(activeCategory) parts.push(catLabel(activeCategory));
+  if(activeDate) parts.push(activeDate);
+  document.getElementById('feed-hint').textContent = parts.length ? parts.join(' · ') : t('allCategories');
+  document.querySelectorAll('.post-card').forEach(card=>{
+    const catOk = !activeCategory || card.dataset.cat === activeCategory;
+    const dateOk = !activeDate || card.dataset.date === activeDate;
+    card.classList.toggle('hidden', !(catOk && dateOk));
+  });
+}
+
+/* ---------------- FEED (social-card style) ---------------- */
+function createPostCard(it){
+  const color = DATA.categories[it.category] || '#888';
+  const card = document.createElement('article');
+  card.className = 'post-card';
+  card.dataset.cat = it.category;
+  card.dataset.date = it.date;
+  card.dataset.itemId = it.id;
+  const countryLabel = placeLabel(it.country);
+  const Lit = L(it);
+  const initials = countryLabel.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  card.innerHTML = `
+    <div class="post-top">
+      <div class="post-avatar">${initials}</div>
+      <div class="post-meta">
+        <span class="country">${countryLabel}</span>
+        <span class="date">${it.date}</span>
+      </div>
+      <span class="cat-chip"><span class="chip-dot" style="background:${color}"></span>${catLabel(it.category)}</span>
+    </div>
+    <div class="post-title">${Lit.title}</div>
+    <div class="post-summary">${highlightSummary(it)}</div>
+    <div class="post-footer">
+      <span class="post-source">${it.source}</span>
+      <div class="post-footer-right">
+        <span class="post-readmore">${t('expandHint')}</span>
+        <a class="post-link" href="${it.url}" target="_blank" rel="noopener">${t('readArticle')}</a>
+      </div>
+    </div>
+  `;
+  return card;
+}
+
+function buildFeed(){
+  const feed = document.getElementById('feed');
+  feed.innerHTML = '';
+  const sorted = [...DATA.items].sort((a,b)=> new Date(b.date)-new Date(a.date));
+  sorted.forEach(it=> feed.appendChild(createPostCard(it)));
+}
+
+/* ---------------- DAILY UPDATE (special topics: US-Iran, Russia-Ukraine, Israel-Palestine) ---------------- */
+let activeTopic = null;
+
+function itemsForTopic(topicId){
+  return DATA.items.filter(it => (it.topics||[]).includes(topicId));
+}
+
+function buildDailyUpdate(){
+  const topics = DATA.specialTopics || [];
+  if(!topics.length){
+    document.getElementById('daily-update').style.display = 'none';
+    return;
+  }
+  if(!activeTopic || !topics.some(tp=>tp.id===activeTopic)) activeTopic = topics[0].id;
+  renderTopicTabs();
+  renderTopicFeed();
+}
+
+function renderTopicTabs(){
+  const tabsEl = document.getElementById('topic-tabs');
+  tabsEl.innerHTML = '';
+  (DATA.specialTopics||[]).forEach(tp=>{
+    const count = itemsForTopic(tp.id).length;
+    const Ltp = L(tp);
+    const tab = document.createElement('div');
+    tab.className = 'topic-tab' + (activeTopic===tp.id ? ' active' : '');
+    tab.innerHTML = `<div class="topic-name">${Ltp.label}</div><div class="topic-sub">${Ltp.description||''}</div><div class="topic-count">${count} ${count===1?t('newsSingular'):t('newsPlural')}</div>`;
+    tab.addEventListener('click', ()=>{
+      activeTopic = tp.id;
+      renderTopicTabs();
+      renderTopicFeed();
+    });
+    tabsEl.appendChild(tab);
+  });
+}
+
+function renderTopicFeed(){
+  const feedEl = document.getElementById('topic-feed');
+  feedEl.innerHTML = '';
+  const items = itemsForTopic(activeTopic).sort((a,b)=> new Date(b.date)-new Date(a.date));
+  if(!items.length){
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.textContent = t('topicEmpty');
+    feedEl.appendChild(empty);
+    return;
+  }
+  items.forEach(it=> feedEl.appendChild(createPostCard(it)));
+}
+
+/* ---------------- CALENDAR ---------------- */
+function newsByDateMap(){
+  const m = {};
+  DATA.items.forEach(it=>{
+    if(!m[it.date]) m[it.date] = [];
+    m[it.date].push(it);
+  });
+  return m;
+}
+
+let calendarInited = false;
+function buildCalendar(){
+  if(!calMonthCursor){
+    const dates = DATA.items.map(it => new Date(it.date+'T00:00:00Z'));
+    const mostRecent = new Date(Math.max(...dates.map(d=>d.getTime())));
+    calMonthCursor = new Date(Date.UTC(mostRecent.getUTCFullYear(), mostRecent.getUTCMonth(), 1));
+  }
+
+  if(!calendarInited){
+    calendarInited = true;
+    document.getElementById('cal-prev').addEventListener('click', ()=>{
+      calMonthCursor = new Date(Date.UTC(calMonthCursor.getUTCFullYear(), calMonthCursor.getUTCMonth()-1, 1));
+      renderCalendarMonth();
+    });
+    document.getElementById('cal-next').addEventListener('click', ()=>{
+      calMonthCursor = new Date(Date.UTC(calMonthCursor.getUTCFullYear(), calMonthCursor.getUTCMonth()+1, 1));
+      renderCalendarMonth();
+    });
+    document.getElementById('cal-reset').addEventListener('click', ()=>{
+      setActiveDate(null);
+    });
+  }
+
+  renderCalendarMonth();
+}
+
+function renderCalendarMonth(){
+  const grid = document.getElementById('calendar-grid');
+  grid.innerHTML = '';
+  const byDate = newsByDateMap();
+
+  t('dows').forEach(d=>{
+    const el = document.createElement('div');
+    el.className = 'cal-dow';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  const year = calMonthCursor.getUTCFullYear();
+  const month = calMonthCursor.getUTCMonth();
+  document.getElementById('cal-month-label').textContent =
+    calMonthCursor.toLocaleDateString(t('locale'), {month:'long', year:'numeric', timeZone:'UTC'});
+
+  const firstDay = new Date(Date.UTC(year, month, 1));
+  // Monday-first offset (getUTCDay: 0=Sun..6=Sat)
+  const leading = (firstDay.getUTCDay() + 6) % 7;
+  const daysInMonth = new Date(Date.UTC(year, month+1, 0)).getUTCDate();
+
+  for(let i=0;i<leading;i++){
+    const empty = document.createElement('div');
+    empty.className = 'cal-day empty';
+    grid.appendChild(empty);
+  }
+
+  for(let day=1; day<=daysInMonth; day++){
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const dayItems = byDate[dateStr] || [];
+    const cell = document.createElement('div');
+    cell.className = 'cal-day' + (dayItems.length ? ' has-news' : '') + (activeDate===dateStr ? ' active' : '');
+    const num = document.createElement('div');
+    num.textContent = day;
+    cell.appendChild(num);
+    if(dayItems.length){
+      const dotsWrap = document.createElement('div');
+      dotsWrap.className = 'cal-day-dots';
+      const cats = [...new Set(dayItems.map(it=>it.category))].slice(0,4);
+      cats.forEach(cat=>{
+        const dot = document.createElement('span');
+        dot.style.background = DATA.categories[cat] || '#888';
+        dotsWrap.appendChild(dot);
+      });
+      cell.appendChild(dotsWrap);
+      cell.addEventListener('click', ()=> setActiveDate(dateStr));
+      cell.addEventListener('mousemove', (e)=>{
+        tooltip.style.display='block';
+        tooltip.style.left=(e.clientX+14)+'px';
+        tooltip.style.top=(e.clientY+14)+'px';
+        tooltip.innerHTML = `<div class="t-title">${dateStr}</div><div class="t-meta">${dayItems.length} ${dayItems.length===1?t('newsSingular'):t('newsPlural')}</div>`;
+      });
+      cell.addEventListener('mouseleave', ()=>{ tooltip.style.display='none'; });
+    }
+    grid.appendChild(cell);
+  }
+}
+
+function setActiveDate(dateStr){
+  activeDate = (activeDate === dateStr) ? null : dateStr;
+  document.getElementById('cal-reset').classList.toggle('visible', !!activeDate);
+  renderCalendarMonth();
+  applyFeedFilters();
+}
+
+/* ---------------- MAP ---------------- */
+function drawMapConnections(){
+  if(!DATA.connections || !DATA.connections.length) return;
+  const byId = itemsById();
+  const g = svg.append('g').attr('class','map-connections');
+  DATA.connections.forEach(conn=>{
+    const a = byId[conn.from], b = byId[conn.to];
+    if(!a || !b) return;
+    const pa = DATA.places[a.country], pb = DATA.places[b.country];
+    if(!pa || !pb) return;
+    const [x1,y1] = projection([pa.lon, pa.lat]);
+    const [x2,y2] = projection([pb.lon, pb.lat]);
+    const mx = (x1+x2)/2, my = (y1+y2)/2 - Math.abs(x2-x1)*0.18 - 20;
+    const d = `M${x1},${y1} Q${mx},${my} ${x2},${y2}`;
+    const color = DATA.categories[conn.category] || '#888';
+    g.append('path').attr('class','conn-arc').attr('d', d).attr('stroke', color)
+      .on('mousemove', (event)=>{
+        tooltip.style.display='block';
+        tooltip.style.left=(event.clientX+14)+'px';
+        tooltip.style.top=(event.clientY+14)+'px';
+        tooltip.innerHTML = `<div class="t-title">${placeLabel(a.country)} ↔ ${placeLabel(b.country)}</div><div class="t-meta">${catLabel(conn.category)}</div><div>${L(conn)||''}</div>`;
+      })
+      .on('mouseleave', ()=>{ tooltip.style.display='none'; });
+  });
+}
+
+function drawPins(){
+  const byC = groupByCountry();
+  const g = svg.append('g').attr('class','pins');
+  Object.entries(DATA.places).forEach(([key, place])=>{
+    const items = byC[key] || [];
+    if(items.length === 0) return;
+    const [x,y] = projection([place.lon, place.lat]);
+    const color = dominantColor(items);
+    const r = 6 + Math.min(items.length, 6) * 1.3;
+    const label = L(place);
+    const pin = g.append('g').attr('class','pin').attr('data-country', key)
+      .attr('transform', `translate(${x},${y})`)
+      .on('click', ()=> selectCountry(key))
+      .on('mousemove', (event)=>{
+        tooltip.style.display='block';
+        tooltip.style.left=(event.clientX+14)+'px';
+        tooltip.style.top=(event.clientY+14)+'px';
+        tooltip.innerHTML = `<strong>${label}</strong><br>${items.length} ${items.length===1?t('newsSingular'):t('newsPlural')}`;
+      })
+      .on('mouseleave', ()=>{ tooltip.style.display='none'; });
+    pin.append('circle').attr('class','halo').attr('r', r+6).attr('fill', color);
+    pin.append('circle').attr('class','core').attr('r', r).attr('fill', color);
+    pin.append('text').attr('class','pin-label').attr('y', -(r+8)).text(label);
+  });
+}
+
+function buildLegend(){
+  const el = document.getElementById('legend');
+  el.innerHTML = '';
+  Object.entries(DATA.categories).forEach(([cat,color])=>{
+    const item = document.createElement('div');
+    item.className='legend-item';
+    item.innerHTML = `<span class="legend-dot" style="background:${color}"></span>${catLabel(cat)}`;
+    el.appendChild(item);
+  });
+  const lineItem = document.createElement('div');
+  lineItem.className = 'legend-item';
+  lineItem.innerHTML = `<span class="legend-line"></span>${t('connectionLegend')}`;
+  el.appendChild(lineItem);
+  document.getElementById('itemcount').textContent = DATA.items.length;
+  document.getElementById('countrycount').textContent = Object.keys(groupByCountry()).length;
+  document.getElementById('conncount').textContent = (DATA.connections||[]).length;
+}
+
+function buildCountryList(){ renderSidebarList(groupByCountry()); }
+
+function renderSidebarList(byC){
+  const el = document.getElementById('sidebar-content');
+  el.innerHTML = '';
+  const h = document.createElement('h3');
+  h.className = 'side-title';
+  h.textContent = t('sideTitle');
+  el.appendChild(h);
+  const list = document.createElement('div');
+  list.className = 'country-list';
+  const order = Object.keys(byC).sort((a,b)=>{
+    const maxA = Math.max(...byC[a].map(x=> new Date(x.date).getTime()));
+    const maxB = Math.max(...byC[b].map(x=> new Date(x.date).getTime()));
+    return maxB - maxA;
+  });
+  order.forEach(country=>{
+    const label = placeLabel(country);
+    const item = document.createElement('div');
+    item.className = 'country-item' + (activeCountry===country ? ' active' : '');
+    item.innerHTML = `<span>${label}</span><span class="count">${byC[country].length}</span>`;
+    item.addEventListener('click', ()=> selectCountry(country));
+    list.appendChild(item);
+  });
+  el.appendChild(list);
+  if(activeCountry){
+    renderDetail(activeCountry, byC[activeCountry] || []);
+  } else {
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.textContent = t('sidebarEmpty');
+    el.appendChild(empty);
+  }
+}
+
+function relatedFor(itemId){
+  const byId = itemsById();
+  return (DATA.connections||[]).filter(c => c.from===itemId || c.to===itemId).map(c=>{
+    const otherId = c.from===itemId ? c.to : c.from;
+    const other = byId[otherId];
+    return other ? {other, label: L(c), category: c.category} : null;
+  }).filter(Boolean);
+}
+
+function renderDetail(country, items){
+  const el = document.getElementById('sidebar-content');
+  const label = placeLabel(country);
+  const wrap = document.createElement('div');
+  const headerRow = document.createElement('div');
+  headerRow.className = 'detail-header';
+  headerRow.innerHTML = `<h3>${label}</h3>`;
+  const backBtn = document.createElement('button');
+  backBtn.className = 'back-btn';
+  backBtn.textContent = t('close');
+  backBtn.addEventListener('click', ()=>{ selectCountry(null); });
+  headerRow.appendChild(backBtn);
+  wrap.appendChild(headerRow);
+
+  const sorted = [...items].sort((a,b)=> new Date(b.date) - new Date(a.date));
+  sorted.forEach(it=>{
+    const card = document.createElement('div');
+    card.className = 'news-card';
+    const color = DATA.categories[it.category] || '#888';
+    const related = relatedFor(it.id);
+    const Lit = L(it);
+    let linksHtml = '';
+    if(related.length){
+      linksHtml = `<div class="links">${t('relatedTo')} ` +
+        related.map(r => `<strong>${placeLabel(r.other.country)}</strong> — ${L(r.other).title}`).join(' · ') + `</div>`;
+    }
+    card.innerHTML = `
+      <div class="cat-tag"><span class="cat-dot" style="background:${color}"></span>${catLabel(it.category)} · ${it.date}</div>
+      <div class="title">${Lit.title}</div>
+      <div class="summary">${highlightSummary(it)}</div>
+      <div class="meta"><span>${it.source}</span><a href="${it.url}" target="_blank" rel="noopener">${t('openArticle')}</a></div>
+      ${linksHtml}
+    `;
+    wrap.appendChild(card);
+  });
+  el.appendChild(wrap);
+}
+
+function selectCountry(country){
+  activeCountry = country;
+  d3.selectAll('.pin').classed('active', function(){
+    return d3.select(this).attr('data-country') === country;
+  });
+  renderSidebarList(groupByCountry());
+}
+
+/* ---------------- TIMELINE ---------------- */
+function buildTimeline(){
+  const items = DATA.items.map(d => ({...d, dateObj: new Date(d.date+'T00:00:00Z')}));
+  const dates = items.map(d => d.dateObj.getTime());
+  let minDate = Math.min(...dates), maxDate = Math.max(...dates);
+  const padMs = 1.5*24*3600*1000;
+  minDate -= padMs; maxDate += padMs;
+  const rangeMs = maxDate - minDate;
+  const xPercent = d => ((d.getTime() - minDate) / rangeMs) * 100;
+
+  const axisEl = document.getElementById('axis');
+  const totalDays = Math.round(rangeMs / (24*3600*1000));
+  const tickCount = Math.min(8, Math.max(4, Math.round(totalDays/4)));
+  for(let i=0;i<=tickCount;i++){
+    const tMs = minDate + (rangeMs * i/tickCount);
+    const d = new Date(tMs);
+    const tick = document.createElement('div');
+    tick.className='axis-tick';
+    tick.style.left = (i/tickCount*100)+'%';
+    tick.textContent = d.toLocaleDateString(t('locale'),{month:'short',day:'numeric'});
+    axisEl.appendChild(tick);
+  }
+
+  const byCountry = {};
+  items.forEach(it=>{ if(!byCountry[it.country]) byCountry[it.country]=[]; byCountry[it.country].push(it); });
+  const countries = Object.keys(byCountry).sort((a,b)=>{
+    const maxA = Math.max(...byCountry[a].map(x=>x.dateObj.getTime()));
+    const maxB = Math.max(...byCountry[b].map(x=>x.dateObj.getTime()));
+    return maxB - maxA;
+  });
+
+  const lanesEl = document.getElementById('lanes');
+  const dotPos = {};
+
+  countries.forEach((country, idx)=>{
+    const lane = document.createElement('div');
+    lane.className='lane';
+    const label = document.createElement('div');
+    label.className='lane-label';
+    label.textContent = placeLabel(country);
+    const track = document.createElement('div');
+    track.className='lane-track';
+
+    byCountry[country].forEach(it=>{
+      const xPct = xPercent(it.dateObj);
+      dotPos[it.id] = {xPct, laneIdx: idx};
+      const dot = document.createElement('div');
+      dot.className='dot';
+      dot.style.left = xPct+'%';
+      dot.style.background = DATA.categories[it.category] || '#888';
+      dot.addEventListener('click', ()=> window.open(it.url, '_blank', 'noopener'));
+      dot.addEventListener('mouseenter', ()=>{
+        const related = relatedFor(it.id);
+        const Lit = L(it);
+        const relHtml = related.length ? `<div class="t-meta">🔗 ${related.map(r=>placeLabel(r.other.country)).join(', ')}</div>` : '';
+        tooltip.innerHTML = `<div class="t-title">${Lit.title}</div>
+          <div class="t-meta">${catLabel(it.category)} · ${placeLabel(it.country)} · ${it.date}</div>
+          <div>${Lit.summary}</div>${relHtml}`;
+        tooltip.style.display='block';
+      });
+      dot.addEventListener('mousemove', (e)=>{
+        tooltip.style.left = (e.clientX+16)+'px';
+        tooltip.style.top = (e.clientY+16)+'px';
+      });
+      dot.addEventListener('mouseleave', ()=>{ tooltip.style.display='none'; });
+      track.appendChild(dot);
+    });
+
+    lane.appendChild(label);
+    lane.appendChild(track);
+    lanesEl.appendChild(lane);
+  });
+
+  requestAnimationFrame(()=>{
+    const lanesWrap = document.querySelector('.lanes-wrap');
+    const laneEls = lanesEl.querySelectorAll('.lane');
+    const laneHeight = laneEls.length ? laneEls[0].getBoundingClientRect().height : 46;
+    const svgConn = document.getElementById('timeline-conn-svg');
+    const trackWidth = lanesWrap.getBoundingClientRect().width - 130;
+    svgConn.setAttribute('viewBox', `0 0 ${trackWidth} ${laneEls.length*laneHeight}`);
+    svgConn.setAttribute('preserveAspectRatio','none');
+    (DATA.connections||[]).forEach(conn=>{
+      const a = dotPos[conn.from], b = dotPos[conn.to];
+      if(!a || !b) return;
+      const x1 = (a.xPct/100)*trackWidth, y1 = a.laneIdx*laneHeight + laneHeight/2;
+      const x2 = (b.xPct/100)*trackWidth, y2 = b.laneIdx*laneHeight + laneHeight/2;
+      const mx = (x1+x2)/2;
+      const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+      p.setAttribute('class','tl-conn-line');
+      p.setAttribute('d', `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`);
+      p.setAttribute('stroke', DATA.categories[conn.category] || '#888');
+      svgConn.appendChild(p);
+    });
+  });
+}
+
+/* ---------------- DEEP-DIVE DRAWER (studenti.it-style highlighted terms) ---------------- */
+function initDrawer(){
+  // Right-side drawer: ONLY for term deep-dives ("Approfondimento").
+  const overlay = document.getElementById('drawer-overlay');
+  const drawer = document.getElementById('drawer');
+  const titleEl = document.getElementById('drawer-title');
+  const bodyEl = document.getElementById('drawer-body');
+
+  // Center modal: ONLY for expanding a news article.
+  const modalOverlay = document.getElementById('modal-overlay');
+  const modalBody = document.getElementById('modal-body');
+
+  function openTermDrawer(termId){
+    const dd = DATA.deepdives && DATA.deepdives[termId];
+    if(!dd) return;
+    const Ldd = L(dd);
+    titleEl.textContent = Ldd.title;
+    bodyEl.innerHTML = `<p>${Ldd.text}</p>`;
+    overlay.classList.add('open');
+    drawer.classList.add('open');
+  }
+  function closeDrawer(){
+    overlay.classList.remove('open');
+    drawer.classList.remove('open');
+  }
+
+  function openArticleModal(itemId){
+    const it = itemsById()[itemId];
+    if(!it) return;
+    const color = DATA.categories[it.category] || '#888';
+    const Lit = L(it);
+    const extended = Lit.detail ? `<p>${highlightSummary(it)}</p><p>${Lit.detail}</p>` : `<p>${highlightSummary(it)}</p>`;
+    modalBody.innerHTML = `
+      <div class="modal-eyebrow">${t('modalEyebrow')}</div>
+      <h3>${Lit.title}</h3>
+      <div class="modal-cat"><span class="dot" style="background:${color}"></span>${catLabel(it.category)} · ${placeLabel(it.country)} · ${it.date}</div>
+      ${extended}
+      <div class="modal-source">${t('source')}: ${it.source}</div>
+      <a class="modal-cta" href="${it.url}" target="_blank" rel="noopener">${t('openFullArticle')}</a>
+    `;
+    modalOverlay.classList.add('open');
+  }
+  function closeModal(){
+    modalOverlay.classList.remove('open');
+  }
+
+  document.addEventListener('click', (e)=>{
+    const mark = e.target.closest('mark.term');
+    if(mark){
+      openTermDrawer(mark.dataset.termId);
+      return;
+    }
+    const link = e.target.closest('a.post-link, a.drawer-cta, a.modal-cta');
+    if(link){ return; } // let it navigate normally, don't open/close anything
+    const card = e.target.closest('.post-card');
+    if(card){
+      openArticleModal(card.dataset.itemId);
+      return;
+    }
+    if(e.target === overlay){ closeDrawer(); }
+    if(e.target === modalOverlay){ closeModal(); }
+  });
+  document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape'){ closeDrawer(); closeModal(); }
+  });
+}
+</script>
+
+</body>
+</html>
