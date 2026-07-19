@@ -309,10 +309,10 @@
   .lane:last-child{ border-bottom:none; }
   .lane-label{ width:130px; flex-shrink:0; font-size:13px; font-weight:600; color:var(--text); padding-right:10px; }
   .lane-track{ position:relative; flex:1; height:100%; }
-  .dot{ position:absolute; top:50%; width:14px; height:14px; border-radius:50%;
+  .tl-dot{ position:absolute; top:50%; width:14px; height:14px; border-radius:50%;
     transform:translate(-50%,-50%); cursor:pointer; border:2px solid var(--card);
     box-shadow:0 0 0 1px rgba(0,0,0,0.15); transition:transform .15s ease; z-index:2; }
-  .dot:hover{ transform:translate(-50%,-50%) scale(1.35); z-index:5; }
+  .tl-dot:hover{ transform:translate(-50%,-50%) scale(1.35); z-index:5; }
   #timeline-conn-svg{ position:absolute; top:0; left:130px; right:0; bottom:0; width:calc(100% - 130px);
     height:100%; pointer-events:none; z-index:1; }
   .tl-conn-line{ fill:none; stroke-width:1.6; stroke-dasharray:4 3; opacity:0.85; }
@@ -1184,7 +1184,7 @@ function buildTimeline(){
       const xPct = xPercent(it.dateObj);
       dotPos[it.id] = {xPct, laneIdx: idx};
       const dot = document.createElement('div');
-      dot.className='dot';
+      dot.className='tl-dot';
       dot.style.left = xPct+'%';
       dot.style.background = DATA.categories[it.category] || '#888';
       dot.addEventListener('click', ()=>{ const primary = (it.sources&&it.sources[0]) || {}; window.open(primary.url, '_blank', 'noopener'); });
