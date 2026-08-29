@@ -181,6 +181,12 @@
       "lon": 12.4964,
       "en": "Italy",
       "it": "Italia"
+    },
+    "Lebanon": {
+      "lat": 33.85,
+      "lon": 35.5,
+      "en": "Lebanon",
+      "it": "Libano"
     }
   },
   "specialTopics": [
@@ -11826,6 +11832,177 @@
         "detail": "La coalizione avverte che, man mano che i modelli di IA diventano più capaci, potrebbero essere sempre più usati come arma per automatizzare su larga scala attacchi hacker, phishing e campagne di disinformazione. I firmatari chiedono standard di sicurezza condivisi, una condivisione più rapida delle minacce tra i laboratori e maggiori investimenti in difese informatiche specifiche per l'IA prima che sistemi più avanzati vengano diffusi su larga scala.",
         "terms": []
       }
+    },
+    {
+      "id": "ukraine-kyiv-massive-attack-aug28",
+      "date": "2026-08-28",
+      "country": "Ukraine",
+      "category": "Geopolitics",
+      "topics": [
+        "russia-ukraine"
+      ],
+      "sources": [
+        {
+          "name": "Kyiv Independent",
+          "url": "https://kyivindependent.com/death-toll-of-russian-august-28-attack-on-kyiv-rises-to-25-two-year-old-girl-and-her-mother-among-killed/",
+          "reliability": 3
+        },
+        {
+          "name": "ABC News (AP)",
+          "url": "https://abcnews.com/International/wireStory/russian-drones-batter-ukraines-kyiv-region-hitting-apartments-136024871",
+          "reliability": 5
+        }
+      ],
+      "en": {
+        "title": "Russian drone and missile barrage kills 25 in Kyiv, including four children",
+        "summary": "Russia hit Kyiv overnight with 598 drones and 31 missiles, the second straight night of strikes on the capital region; a five-storey apartment block was destroyed and President Zelenskyy called it a 'despicable attack.'",
+        "detail": "Ukrainian air defenses intercepted 563 drones and 26 missiles, but the barrage — including Kinzhal, Iskander-M and Kh-101 weapons — still killed 25 people and injured 63, among them 24-year-old Nadiia Yakymenko and her 2-year-old daughter Anhelina, who according to Ukraine's foreign ministry 'was born under Russian shelling in October 2022 and died from Russian shelling in August 2026.' It was the second consecutive night Russian drones battered the Kyiv region, following a strike on nine Ukrainian cities a day earlier; Ukraine's military separately said it aims to launch 1,000 long-range drones a day at Russian territory.",
+        "terms": []
+      },
+      "it": {
+        "title": "Bombardamento russo di droni e missili uccide 25 persone a Kiev, tra cui quattro bambini",
+        "summary": "La Russia ha colpito Kiev nella notte con 598 droni e 31 missili, la seconda notte consecutiva di attacchi sulla capitale; un palazzo di cinque piani è stato distrutto e il presidente Zelensky ha parlato di un 'attacco spregevole'.",
+        "detail": "Le difese aeree ucraine hanno intercettato 563 droni e 26 missili, ma il bombardamento — che ha incluso armi Kinzhal, Iskander-M e Kh-101 — ha comunque ucciso 25 persone e ferito 63, tra cui la 24enne Nadiia Yakymenko e sua figlia di 2 anni Anhelina, che secondo il ministero degli Esteri ucraino 'è nata sotto i bombardamenti russi nell'ottobre 2022 ed è morta per i bombardamenti russi nell'agosto 2026'. È stata la seconda notte consecutiva di attacchi russi sulla regione di Kiev, dopo il bombardamento su nove città ucraine del giorno precedente; l'esercito ucraino ha inoltre annunciato l'obiettivo di lanciare 1.000 droni a lungo raggio al giorno contro il territorio russo.",
+        "terms": []
+      }
+    },
+    {
+      "id": "westbank-jenin-occupied-aug28",
+      "date": "2026-08-28",
+      "country": "Palestine",
+      "category": "Geopolitics",
+      "topics": [
+        "israel-palestine"
+      ],
+      "sources": [
+        {
+          "name": "Al Jazeera",
+          "url": "https://www.aljazeera.com/news/2026/8/28/israeli-strike-kills-three-palestinians-in-west-banks-jenin",
+          "reliability": 4
+        },
+        {
+          "name": "Middle East Eye",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israels-defence-minister-says-forces-have-occupied-jenin-camp-west-bank",
+          "reliability": 3
+        }
+      ],
+      "en": {
+        "title": "Israel declares West Bank's Jenin camp 'occupied' after strike kills three",
+        "summary": "An Israeli drone strike on Jenin killed three Palestinians, after which Defense Minister Israel Katz said Israeli forces had evacuated residents and would be 'permanently stationed' in the refugee camp.",
+        "detail": "It was Israel's first airstrike in the West Bank since February 2025, hitting a house under construction in western Jenin; Hamas condemned it, while the Red Crescent said Israeli troops blocked ambulances from reaching casualties. Katz's declaration is the most explicit statement yet that Israel intends to keep a permanent military presence in Jenin, deepening the occupation of one of the West Bank's largest refugee camps.",
+        "terms": []
+      },
+      "it": {
+        "title": "Israele dichiara 'occupato' il campo profughi di Jenin dopo un attacco che uccide tre persone",
+        "summary": "Un attacco con drone israeliano su Jenin ha ucciso tre palestinesi, dopo il quale il ministro della Difesa Israel Katz ha dichiarato che le forze israeliane hanno fatto evacuare i residenti e resteranno 'stazionate permanentemente' nel campo profughi.",
+        "detail": "È stato il primo attacco aereo israeliano in Cisgiordania dal febbraio 2025, colpendo una casa in costruzione nella zona ovest di Jenin; Hamas lo ha condannato, mentre la Mezzaluna Rossa ha denunciato che le truppe israeliane hanno impedito alle ambulanze di raggiungere i feriti. La dichiarazione di Katz è la più esplicita finora sull'intenzione israeliana di mantenere una presenza militare permanente a Jenin, approfondendo l'occupazione di uno dei più grandi campi profughi della Cisgiordania.",
+        "terms": []
+      }
+    },
+    {
+      "id": "nepal-tibet-barrier-lake-aug28",
+      "date": "2026-08-28",
+      "country": "Nepal",
+      "category": "Social",
+      "topics": [],
+      "sources": [
+        {
+          "name": "Al Jazeera",
+          "url": "https://www.aljazeera.com/news/2026/8/28/death-toll-from-nepal-tibet-flood-passes-470-as-barrier-lake-threatens",
+          "reliability": 4
+        },
+        {
+          "name": "CNN",
+          "url": "https://www.cnn.com/2026/08/28/world/live-news/nepal-china-flood",
+          "reliability": 4
+        }
+      ],
+      "en": {
+        "title": "New glacial barrier lake threatens fresh flooding as Nepal-Tibet death toll passes 470",
+        "summary": "Rescuers in Nepal and Tibet paused search efforts after a newly formed barrier lake holding millions of cubic metres of water threatened a second catastrophic flood, as the confirmed death toll from this week's disaster passed 470 with over 1,500 people still missing.",
+        "detail": "The natural dam, formed by the same glacial collapse that triggered the original flood, held roughly 2 million cubic metres of water with 3 million more expected within days, prompting fears of a repeat disaster. Nepal deployed 30,000 security personnel and rescued around 1,550 people, mostly by helicopter after nearly 42km of roads were destroyed; China sent 500 military and paramilitary personnel, with Premier Li Qiang overseeing operations on the Tibetan side. Nepal has so far declined offers of international search teams while accepting other forms of aid.",
+        "terms": []
+      },
+      "it": {
+        "title": "Un nuovo lago glaciale minaccia nuove alluvioni mentre il bilancio Nepal-Tibet supera i 470 morti",
+        "summary": "I soccorritori in Nepal e Tibet hanno sospeso le ricerche dopo che un nuovo lago di sbarramento, formatosi con milioni di metri cubi d'acqua, ha minacciato una seconda alluvione catastrofica, mentre il bilancio confermato dei morti per il disastro di questa settimana ha superato i 470, con oltre 1.500 persone ancora disperse.",
+        "detail": "La diga naturale, formatasi dallo stesso collasso glaciale che ha innescato l'alluvione iniziale, tratteneva circa 2 milioni di metri cubi d'acqua, con altri 3 milioni attesi entro pochi giorni, facendo temere un disastro bis. Il Nepal ha schierato 30.000 uomini delle forze di sicurezza e salvato circa 1.550 persone, per lo più in elicottero dopo la distruzione di quasi 42 km di strade; la Cina ha inviato 500 militari e paramilitari, con il premier Li Qiang a supervisionare le operazioni sul lato tibetano. Il Nepal ha finora rifiutato l'offerta di squadre di ricerca internazionali, accettando invece altre forme di aiuto.",
+        "terms": []
+      }
+    },
+    {
+      "id": "anthropic-pentagon-ruling-aug28",
+      "date": "2026-08-28",
+      "country": "USA",
+      "category": "Technology",
+      "topics": [
+        "ai"
+      ],
+      "sources": [
+        {
+          "name": "TechCrunch",
+          "url": "https://techcrunch.com/2026/08/28/anthropic-gets-its-first-court-win-over-the-pentagons-supply-chain-risk-label/",
+          "reliability": 4
+        },
+        {
+          "name": "Axios",
+          "url": "https://www.axios.com/2026/08/28/judge-blocks-pentagon-anthropic-blacklist",
+          "reliability": 4
+        }
+      ],
+      "en": {
+        "title": "Federal judge rules Pentagon's blacklisting of Anthropic was unlawful",
+        "summary": "A US judge struck down the Pentagon's designation of Anthropic as a 'supply chain risk,' ruling that Defense Secretary Pete Hegseth's move was illegal retaliation after the company refused to let Claude be used for autonomous weapons or mass surveillance.",
+        "detail": "US District Judge Rita Lin found the designation amounted to unlawful retaliation under the First Amendment, arbitrary government action and a due-process violation, writing that 'the empty invocation of national security is not a blank check to punish and retaliate against government critics.' The Pentagon had ordered federal agencies to stop working with Anthropic after the company declined to remove safety guardrails restricting military use of its models; the government is expected to appeal, and Anthropic still faces a separate Pentagon designation being contested in a Washington, D.C. court.",
+        "terms": [
+          {
+            "match": "Hegseth",
+            "id": "hegseth"
+          }
+        ]
+      },
+      "it": {
+        "title": "Un giudice federale dichiara illegittimo l'inserimento di Anthropic nella lista nera del Pentagono",
+        "summary": "Un giudice statunitense ha annullato la designazione di Anthropic come 'rischio per la catena di approvvigionamento' da parte del Pentagono, stabilendo che la mossa del segretario alla Difesa Pete Hegseth era una ritorsione illegale dopo che l'azienda si era rifiutata di far usare Claude per armi autonome o sorveglianza di massa.",
+        "detail": "La giudice federale Rita Lin ha stabilito che la designazione costituiva una ritorsione illegale ai sensi del Primo Emendamento, un atto governativo arbitrario e una violazione del giusto processo, scrivendo che 'l'invocazione vuota della sicurezza nazionale non è un assegno in bianco per punire e vendicarsi contro i critici del governo'. Il Pentagono aveva ordinato alle agenzie federali di interrompere i rapporti con Anthropic dopo che l'azienda aveva rifiutato di rimuovere le protezioni di sicurezza che limitano l'uso militare dei suoi modelli; il governo dovrebbe fare appello, e Anthropic deve ancora affrontare una separata designazione del Pentagono contestata in un tribunale di Washington.",
+        "terms": [
+          {
+            "match": "Hegseth",
+            "id": "hegseth"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lebanon-hezbollah-rejects-deal-aug28",
+      "date": "2026-08-28",
+      "country": "Lebanon",
+      "category": "Geopolitics",
+      "topics": [],
+      "sources": [
+        {
+          "name": "NBC News",
+          "url": "https://www.nbcnews.com/world/lebanon/hezbollah-rejects-us-brokered-israel-lebanon-security-deal-surrender-rcna352040",
+          "reliability": 4
+        },
+        {
+          "name": "The Times of Israel",
+          "url": "https://www.timesofisrael.com/liveblog_entry/hezbollah-chief-again-rejects-lebanon-israel-deal-refuses-surrender/",
+          "reliability": 4
+        }
+      ],
+      "en": {
+        "title": "Hezbollah chief rejects US-brokered Lebanon-Israel security deal as 'surrender'",
+        "summary": "Hezbollah leader Naim Qassem again rejected the framework agreement negotiated between Lebanon and Israel, calling it 'illegitimate, unlawful, humiliating' and vowing the group 'will not surrender.'",
+        "detail": "The US-sponsored framework, signed in late June, requires Hezbollah's disarmament, a gradual Israeli military withdrawal from southern Lebanon and deployment of the Lebanese army to newly created 'pilot zones.' Qassem specifically rejected the pilot-zone concept and any verification mechanisms, citing a November 2024 ceasefire as preferable, as fresh negotiation rounds are planned for early September. The dispute follows an escalation that began when Hezbollah attacked Israel in March 2026, drawing Lebanon into the wider Middle East war; Lebanese authorities have reported over 4,300 deaths in the fighting since.",
+        "terms": []
+      },
+      "it": {
+        "title": "Il leader di Hezbollah respinge l'accordo di sicurezza Libano-Israele mediato dagli USA, lo definisce una 'resa'",
+        "summary": "Il leader di Hezbollah Naim Qassem ha nuovamente respinto l'accordo quadro negoziato tra Libano e Israele, definendolo 'illegittimo, illecito, umiliante' e giurando che il gruppo 'non si arrenderà'.",
+        "detail": "L'accordo quadro sponsorizzato dagli Stati Uniti, firmato a fine giugno, prevede il disarmo di Hezbollah, un graduale ritiro militare israeliano dal sud del Libano e lo spiegamento dell'esercito libanese in nuove 'zone pilota'. Qassem ha respinto in particolare il concetto di zone pilota e qualsiasi meccanismo di verifica, indicando come preferibile il cessate il fuoco del novembre 2024, mentre nuovi round negoziali sono previsti per inizio settembre. La disputa segue un'escalation iniziata quando Hezbollah ha attaccato Israele nel marzo 2026, trascinando il Libano nel più ampio conflitto mediorientale; le autorità libanesi hanno riportato oltre 4.300 morti nei combattimenti da allora.",
+        "terms": []
+      }
     }
   ],
   "connections": [
@@ -13613,6 +13790,34 @@
       "category": "Geopolitics",
       "en": "Part of the same escalation: large-scale strikes traded by both sides within 24 hours of each other.",
       "it": "Parte della stessa escalation: attacchi su larga scala scambiati da entrambe le parti a distanza di 24 ore."
+    },
+    {
+      "from": "ukraine-kyiv-massive-attack-aug28",
+      "to": "ukraine-massive-strike-aug27",
+      "category": "Geopolitics",
+      "en": "Part of the same intensifying bombing campaign: a massive strike on nine cities was followed a day later by an even deadlier barrage on Kyiv.",
+      "it": "Parte della stessa campagna di bombardamenti in intensificazione: un attacco massiccio su nove città è stato seguito il giorno dopo da un bombardamento ancora più letale su Kiev."
+    },
+    {
+      "from": "westbank-jenin-occupied-aug28",
+      "to": "israel-uk-gaza-center-expulsion-aug27",
+      "category": "Geopolitics",
+      "en": "Two fronts of the same widening rift: while weighing the expulsion of UK officials from the Gaza coordination center, Israel also declared a permanent military occupation of Jenin in the West Bank.",
+      "it": "Due fronti della stessa frattura in espansione: mentre valuta di espellere i funzionari britannici dal centro di coordinamento per Gaza, Israele ha anche dichiarato l'occupazione militare permanente di Jenin in Cisgiordania."
+    },
+    {
+      "from": "nepal-tibet-barrier-lake-aug28",
+      "to": "nepal-tibet-floods-death-toll-aug27",
+      "category": "Social",
+      "en": "The disaster keeps compounding: a day after the confirmed toll stood at 160, a newly formed barrier lake threatened a second flood as the toll nearly tripled to over 470.",
+      "it": "Il disastro continua ad aggravarsi: un giorno dopo che il bilancio accertato era di 160 morti, un nuovo lago di sbarramento ha minacciato una seconda alluvione mentre il bilancio è quasi triplicato superando i 470."
+    },
+    {
+      "from": "anthropic-pentagon-ruling-aug28",
+      "to": "ai-rogue-defense-call-aug27",
+      "category": "Technology",
+      "en": "The same week AI companies jointly called for stronger defenses against misuse of their systems, one of them won a court fight against the US government's own attempt to restrict how its AI could be used.",
+      "it": "Nella stessa settimana in cui le aziende di IA hanno chiesto congiuntamente difese più forti contro l'uso improprio dei loro sistemi, una di esse ha vinto una battaglia legale contro il tentativo del governo statunitense di limitare l'uso del proprio modello."
     }
   ],
   "specialColors": {
